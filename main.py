@@ -16,9 +16,9 @@ path_to_save_images = os.path.join(app.root_path, 'static', 'imgs')
 class Pets(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     photo_name = db.Column(db.String(500), unique=True)
-    pet_name = db.Column(db.String(500), unique=True)
-    h_old = db.Column(db.String(500), unique=True)
-    helth_st = db.Column(db.String(500), unique=True)
+    pet_name = db.Column(db.String(500))
+    h_old = db.Column(db.String(500))
+    helth_st = db.Column(db.String(500))
 
     def __init__(self, photo_name, pet_name,h_old,helth_st):
         self.photo_name = photo_name
@@ -40,7 +40,6 @@ def home():
     for i in range(5):
         json_data.append(files[i])
     lenght = 5
-    db.create_all()
     return render_template('index.html', json_data=json_data, lenght=lenght)
 
 @app.route('/admin_auth', methods=['GET', 'POST'])
