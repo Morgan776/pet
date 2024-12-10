@@ -20,10 +20,11 @@ class Pets(db.Model):
     h_old = db.Column(db.String(500), unique=True)
     helth_st = db.Column(db.String(500), unique=True)
 
-    def __init__(self, photo_name, pet_name,h_old):
+    def __init__(self, photo_name, pet_name,h_old,helth_st):
         self.photo_name = photo_name
         self.pet_name = pet_name
         self.h_old = h_old
+        self.helth_st = helth_st
  
     def __repr__(self):
         return '<pets %r>' % (self.pet_name)
@@ -39,6 +40,7 @@ def home():
     for i in range(5):
         json_data.append(files[i])
     lenght = 5
+    db.create_all()
     return render_template('index.html', json_data=json_data, lenght=lenght)
 
 @app.route('/admin_auth', methods=['GET', 'POST'])
@@ -62,7 +64,7 @@ def admin_panel():
     json_data = []
     res = Pets.query.all()
     for i in range(len(res)):
-        json_data.append([res[i].id,res[i].photo_name,res[i].pet_name,res[i].h_old])
+        json_data.append([res[i].id,res[i].photo_name,res[i].pet_name,res[i].h_old,res[i].helth_st])
 
     if request.method == 'POST':
         me = Pets.query.filter_by(id=request.form['id']).first()
@@ -71,7 +73,7 @@ def admin_panel():
             filename = secure_filename(file.filename)
             save_path = os.path.join(path_to_save_images, filename)
             file.save(save_path)
-        add_pet = Pets(filename,request.form['pet_name'],request.form['h_old'])
+        add_pet = Pets(filename,request.form['pet_name'],request.form['h_old'], request.form["helth_st"])
         db.session.delete(me)
         db.session.add(add_pet)
         db.session.commit()
@@ -87,7 +89,7 @@ def admin_panel_add():
           filename = secure_filename(file.filename)
           save_path = os.path.join(path_to_save_images, filename)
           file.save(save_path)
-      add_pet = Pets(filename,request.form['pet_name'],request.form['h_old'])
+      add_pet = Pets(filename,request.form['pet_name'],request.form['h_old'], request.form["helth_st"])
       db.session.add(add_pet)
       db.session.commit()
     return render_template('admin_panel_add.html')
@@ -99,7 +101,7 @@ def admin_panel_delete():
     json_data = []
     res = Pets.query.all()
     for i in range(len(res)):
-        json_data.append([res[i].id,res[i].photo_name,res[i].pet_name,res[i].h_old])
+        json_data.append([res[i].id,res[i].photo_name,res[i].pet_name,res[i].h_old,res[i].helth_st])
     if request.method == 'POST':
         me = Pets.query.filter_by(id=request.form['id']).first()
         db.session.delete(me)
@@ -116,7 +118,7 @@ def pet_list():
     json_data = []
     res = Pets.query.all()
     for i in range(len(res)):
-        json_data.append([res[i].id,res[i].photo_name,res[i].pet_name,res[i].h_old])
+        json_data.append([res[i].id,res[i].photo_name,res[i].pet_name,res[i].h_old,res[i].helth_st])
     return render_template('pets.html', json_data=json_data)
 
 @app.route('/contact', methods=['GET', 'POST'])
