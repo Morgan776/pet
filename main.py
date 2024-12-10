@@ -18,6 +18,7 @@ class Pets(db.Model):
     photo_name = db.Column(db.String(500), unique=True)
     pet_name = db.Column(db.String(500), unique=True)
     h_old = db.Column(db.String(500), unique=True)
+    helth_st = db.Column(db.String(500), unique=True)
 
     def __init__(self, photo_name, pet_name,h_old):
         self.photo_name = photo_name
@@ -35,9 +36,9 @@ def allowed_file(filename):
 def home():
     json_data = []
     files = os.listdir("static//imgs")
-    for i in files:
-        json_data.append(i)
-    lenght = len(json_data)
+    for i in range(5):
+        json_data.append(files[i])
+    lenght = 5
     return render_template('index.html', json_data=json_data, lenght=lenght)
 
 @app.route('/admin_auth', methods=['GET', 'POST'])
