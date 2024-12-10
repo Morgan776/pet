@@ -107,3 +107,11 @@ li{
     left: 0%;
     color: #666;
 }
+.wrap{
+    display: block;
+}
+.slide{
+    background-color: #5c5c5c;
+    height: 800px;
+    width: 100%;
+}

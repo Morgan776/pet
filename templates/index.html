@@ -15,40 +15,36 @@
                 <li><a href="{{ url_for('home') }}" class="an">Главная</a></li>
                 <li><a href="{{ url_for('pet_list') }}" class="an">Животные</a></li>
                 <li><a href="{{ url_for('contact') }}" class="an">Контакты</a></li>
-                <li href="">О нас</li>
             </ul>
         </div>
     </div>
-        <div id="carouselExampleIndicators" class="carouselslide" data-bs-ride="carousel">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
             <!-- Indicators -->
             <div class="carousel-indicators">
                 {% for item in json_data %}
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ loop.index0 }}" class="{{ 'active' if loop.first else '' }}"
-                        aria-current="true" aria-label="Slide {{ loop.index }}"></button>
-                        {% endfor %}
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ loop.index0 }}"
+                            class="{{ 'active' if loop.first else '' }}" aria-label="Slide {{ loop.index }}"></button>
+                {% endfor %}
             </div>
         
             <!-- Carousel items -->
             <div class="carousel-inner">
-                {% for item in json_data %}
-                <div class="carousel-item {{ 'active' if loop.first else '' }}">
-                    <img src="static/imgs/{{item}}" class="d-block kar" alt="">
-                    <div class="carousel-caption d-none d-md-block">
-                        <button class="btn btn-primary">Click Me</button>
+                {% for item in json_data%}
+                    <div class="carousel-item {{ 'active' if loop.first else '' }}">
+                        <img src="static//imgs//{{ item }}" class="d-block kar" alt="">
+                        <div class="carousel-caption d-none d-md-block">
+                        </div>
                     </div>
-                </div>
                 {% endfor %}
             </div>
         
             <!-- Controls -->
-            <button class="carousel-control-prevs" type="button" data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"><</span>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-nexts" type="button" data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true">></span>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
